@@ -1,2 +1,2 @@
 # AOC2020
-Advent of code 2020
+Attempts for puzzles for Advent of Code 2020
