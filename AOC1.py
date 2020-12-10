@@ -10,11 +10,17 @@ for i in numbers:
     if target_found:
         break
     target = goal - i
-    print("Current_num: ", i, "Target: ", target, "\n")
-    for j in range(len(numbers)):
-        if numbers[j] == target:
-            target_found = True
-            print(i * numbers[j])
+    for j in numbers:
+        sub_target = target - j
+        if target_found:
             break
+        elif sub_target < 0:
+            continue
+        else:
+            for k in numbers:
+                if k == sub_target:
+                    target_found = True
+                    print(i * j * k)
+                    break
 
 
