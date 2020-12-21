@@ -17,6 +17,8 @@ if R, lb = lb + diff/2 if diff even, lb = lb + (diff+1)/2 if diff odd
 """
 
 
+import re
+
 def get_passes():
     pass_list = []
     with open("passes.txt", "r") as passes:
@@ -31,6 +33,7 @@ def get_passes():
 def calc_seat_row(row_str):
     lb = 0  # Lower bound on seat row
     ub = 127  # Upper bound on seat row
+    at_end = True
     for i in range(0, 6):
         char = row_str[i]
 
@@ -40,6 +43,7 @@ def calc_seat_row(row_str):
             else:
                 ub = ub - (ub - lb)/2
         else:
+            at_end = True
             if (ub - lb) % 2 > 0:
                 lb = lb + (ub - lb + 1)/2
             else:
@@ -82,12 +86,48 @@ def get_seat_id(curr_pass):
     return pass_id
 
 
-passes = get_passes()
-max_id = -1
-for p in passes:
-    curr_id = get_seat_id(p)
-    if max_id < curr_id:
-        max_id = curr_id
+def part_one():
+    passes = get_passes()
+    max_id = -1
+    for p in passes:
+        curr_id = get_seat_id(p)
+        if max_id < curr_id:
+            max_id = curr_id
 
-print("Max:", max_id)
+    print("Max:", max_id)
+
+
+def next_seat_missing(curr_id, next_id):
+    expected_id = curr_id + 1
+    if expected_id != next_id:
+        return True
+    return False
+    
+        
+
+def part_two():
+    passes = get_passes()
+    seats = []
+    at_front_regex = "F{7}"
+    at_back_regex = "B{7}"
+    very_front = []
+    very_back = []
+    for p in passes:
+        seats.append(get_seat_id(p))
+    seats.sort()
+    missing_list = []
+    for i in range(0, len(seats)-1):
+        if next_seat_missing(seats[i], seats[i+1]):
+            missing_list.append(seats[i]+1)
+    print(missing_list)
+
+
+def main():
+    #part_one()
+    part_two()
+
+
+at_ends = []
+if __name__ == '__main__':
+    main()
 

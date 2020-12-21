@@ -25,7 +25,9 @@ fourth: 4 per with 1 ans each
 fifth: 1 per 1 ans
 
 P1: total sum of yesses to unique questions across groups
+P2: total sum of questions that everyone in each group answered yes to
 """
+import re
 
 
 def get_answers():
@@ -47,12 +49,22 @@ def get_answers():
 
 
 def count_yesses(group):
-    questions = set({})  # Stores question letters with at least one yes, no duplicates
+    questions = set({})  # Stores question letters with at least one yes
     for person_qs in group:
         for char in person_qs:
             questions.add(char)
     return len(questions)
 
+
+def count_unanimous(group):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    for i in range(0, len(group)):
+        for char in alphabet:
+            found = re.search(char, group[i])
+            if not found:
+                alphabet = re.sub(char, "", alphabet)
+    return len(alphabet)
+    
 
 def part_one():
     count = 0
@@ -62,8 +74,17 @@ def part_one():
     print(count)
 
 
+def part_two():
+    count = 0
+    answers = get_answers()
+    for group in answers:
+        count += count_unanimous(group)
+    print(count)
+
+
 def main():
     part_one()
+    part_two()
 
 
 if __name__ == '__main__':

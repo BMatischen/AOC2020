@@ -33,7 +33,7 @@ def validate_contents(contents):
     hgt_regex = r'hgt:1[5-8][0-9]cm|hgt:19[0-3]cm|hgt:59in|hgt:6[0-9]in|hgt:7[0-6]in'
     hcl_regex = r'hcl:#[\da-f]{6}'
     ecl_regex = r'ecl:amb|ecl:blu|ecl:brn|ecl:gry|ecl:grn|ecl:hzl|ecl:oth'
-    pid_regex = r'pid:\d{9}( |$)'
+    pid_regex = r'pid:\d{9}( |$)'  # pid:(9 digits) then space or end of string
 
     attributes = []
     valid = 0
